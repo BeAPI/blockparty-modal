@@ -27,6 +27,11 @@
 
 	&:not(.block-editor-block-list__block) {
 		margin: var(--wp-block-blockparty-modal-margin);
+
+		&:first-child,
+		&:last-child {
+			margin-block: var(--wp-block-blockparty-modal-margin);
+		}
 	}
 
 	&::backdrop {
