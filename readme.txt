@@ -47,6 +47,7 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 = 1.0.1 =
 * Fix margin style for dialog element; set to auto by default instead of 0.
+* Remove dupplicated InnerBlocks.Content
 
 = 1.0.0 =
 * Initial Release

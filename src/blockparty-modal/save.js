@@ -63,7 +63,6 @@ export default function save( { attributes } ) {
 			<div className="wp-block-blockparty-modal__content">
 				<InnerBlocks.Content />
 			</div>
-			<InnerBlocks.Content />
 			{ enableCloseButton && closedBy !== 'none' && (
 				<button
 					type="button"
