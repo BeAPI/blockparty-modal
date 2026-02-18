@@ -26,6 +26,7 @@ define( 'BLOCKPARTY_MODAL_DIR', plugin_dir_path( __FILE__ ) );
 
 // Require vendor
 if ( file_exists( BLOCKPARTY_MODAL_DIR . '/vendor/autoload.php' ) ) {
+	/** @psalm-suppress UnresolvableInclude */
 	require BLOCKPARTY_MODAL_DIR . '/vendor/autoload.php';
 }
 
@@ -49,17 +50,18 @@ add_action( 'init', __NAMESPACE__ . '\\init', 10, 0 );
  * Passes the list of blocks allowed as modal triggers to the block editor settings
  * so the "Attached modal" panel is only shown for those blocks.
  *
- * @param array<string, mixed> $settings      Block editor settings.
- * @param \WP_Block_Editor_Context $context   Block editor context.
- * @return array<string, mixed> Modified settings.
+ * @param array<array-key, mixed> $settings   Block editor settings.
+ * @param \WP_Block_Editor_Context $_context Block editor context (unused).
+ * @return array<array-key, mixed> Modified settings.
  */
-function block_editor_settings_modal_trigger_blocks( array $settings, $context ): array {
-	$allowed = apply_filters(
+function block_editor_settings_modal_trigger_blocks( array $settings, \WP_Block_Editor_Context $_context ): array { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- Required by block_editor_settings_all filter signature.
+	/** @psalm-suppress MixedAssignment */
+	$raw = apply_filters(
 		'blockparty_modal_trigger_allowed_blocks',
 		get_default_modal_trigger_allowed_blocks()
 	);
 	$settings['blockpartyModalTriggerAllowedBlocks'] = array_values(
-		array_filter( is_array( $allowed ) ? $allowed : [], 'is_string' )
+		array_filter( is_array( $raw ) ? $raw : [], 'is_string' )
 	);
 	return $settings;
 }
@@ -81,11 +83,11 @@ function get_default_modal_trigger_allowed_blocks(): array {
  * Only blocks in the allowed list (filterable) get this behavior; by default only core/button.
  * For core/button, the inner link or button is turned into the trigger (no wrapper).
  *
- * @param string $block_content The block content.
- * @param array  $block         The full block, including attributes.
+ * @param string                   $block_content The block content.
+ * @param array<array-key, mixed>   $block         The full block, including attributes.
  * @return string Filtered block content.
  */
-function render_block_add_modal_trigger( $block_content, $block ) {
+function render_block_add_modal_trigger( $block_content, array $block ) {
 	$linked_modal_id = isset( $block['attrs']['linkedModalId'] )
 		? $block['attrs']['linkedModalId']
 		: '';
@@ -94,13 +96,14 @@ function render_block_add_modal_trigger( $block_content, $block ) {
 		return $block_content;
 	}
 
-	$block_name = isset( $block['blockName'] ) ? $block['blockName'] : '';
-	$allowed_blocks = apply_filters(
+	$block_name = (string) ( $block['blockName'] ?? '' );
+	/** @psalm-suppress MixedAssignment */
+	$raw_blocks     = apply_filters(
 		'blockparty_modal_trigger_allowed_blocks',
 		get_default_modal_trigger_allowed_blocks()
 	);
 	$allowed_blocks = array_filter(
-		is_array( $allowed_blocks ) ? $allowed_blocks : array(),
+		is_array( $raw_blocks ) ? $raw_blocks : array(),
 		'is_string'
 	);
 
