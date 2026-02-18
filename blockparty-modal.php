@@ -23,6 +23,12 @@ define( 'BLOCKPARTY_MODAL_VERSION', '1.0.1' );
 define( 'BLOCKPARTY_MODAL_URL', plugin_dir_url( __FILE__ ) );
 define( 'BLOCKPARTY_MODAL_DIR', plugin_dir_path( __FILE__ ) );
 
+
+// Require vendor
+if ( file_exists( BLOCKPARTY_MODAL_DIR . '/vendor/autoload.php' ) ) {
+	require BLOCKPARTY_MODAL_DIR . '/vendor/autoload.php';
+}
+
 /**
  * Registers the block(s) metadata from the `blocks-manifest.php` and registers the block type(s)
  * based on the registered block metadata. Behind the scenes, it registers also all assets so they can be enqueued
