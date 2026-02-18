@@ -6,7 +6,7 @@
     <description>Blockparty Modal coding standards</description>
 
     <!-- Scan all files in directory -->
-    <file>blockparty-moda.php</file>
+    <file>blockparty-modal.php</file>
 
     <exclude-pattern>./build/</exclude-pattern>
     <exclude-pattern>./languages/</exclude-pattern>
