@@ -45,6 +45,12 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
+= 1.0.2 =
+* Filter `blockparty_modal_trigger_allowed_blocks` to control which blocks can be modal triggers; dialog margin and InnerBlocks fixes.
+* Crawl Modal blocks from patterns
+* Set min required PHP version to 8.0
+* Style issues
+
 = 1.0.1 =
 * Fix margin style for dialog element; set to auto by default instead of 0.
 * Remove dupplicated InnerBlocks.Content

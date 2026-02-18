@@ -23,7 +23,7 @@ import metadata from './block.json';
 import {
 	MODAL_BLOCK_NAME,
 	LINKED_MODAL_ATTR,
-	getModalOptionsFromBlocks,
+	getModalOptionsFromEditor,
 	addLinkedModalAttribute,
 } from './utils';
 
@@ -52,7 +52,7 @@ blockTypes.forEach( ( blockType ) => {
 	}
 } );
 
-// Add "Open modal on click" panel with Combobox to all blocks except the modal itself.
+// Add "Attached modal" panel with Combobox only to blocks allowed as modal triggers (see filter blockparty_modal_trigger_allowed_blocks).
 addFilter(
 	'editor.BlockEdit',
 	'blockparty-modal/with-modal-trigger-control',
@@ -63,9 +63,18 @@ addFilter(
 			return <BlockEdit { ...props } />;
 		}
 
+		const allowedBlocks = useSelect( ( select ) => {
+			const settings = select( 'core/block-editor' ).getSettings();
+			const list = settings?.blockpartyModalTriggerAllowedBlocks;
+			return Array.isArray( list ) ? list : [ 'core/button' ];
+		}, [] );
+
+		if ( ! allowedBlocks.includes( name ) ) {
+			return <BlockEdit { ...props } />;
+		}
+
 		const modalOptions = useSelect( ( select ) => {
-			const blocks = select( 'core/block-editor' ).getBlocks();
-			return getModalOptionsFromBlocks( blocks );
+			return getModalOptionsFromEditor( select );
 		}, [] );
 
 		const options = [

@@ -2,9 +2,9 @@
 /**
  * Plugin Name:       Blockparty Modal
  * Description:       Modal block for WordPress editor.
- * Version:           1.0.1
+ * Version:           1.0.2
  * Requires at least: 6.8
- * Requires PHP:      7.4
+ * Requires PHP:      8.0
  * Author:            Be API Technical Team
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,9 +19,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'BLOCKPARTY_MODAL_VERSION', '1.0.1' );
+define( 'BLOCKPARTY_MODAL_VERSION', '1.0.2' );
 define( 'BLOCKPARTY_MODAL_URL', plugin_dir_url( __FILE__ ) );
 define( 'BLOCKPARTY_MODAL_DIR', plugin_dir_path( __FILE__ ) );
+
+
+// Require vendor
+if ( file_exists( BLOCKPARTY_MODAL_DIR . '/vendor/autoload.php' ) ) {
+	/** @psalm-suppress UnresolvableInclude */
+	require BLOCKPARTY_MODAL_DIR . '/vendor/autoload.php';
+}
 
 /**
  * Registers the block(s) metadata from the `blocks-manifest.php` and registers the block type(s)
@@ -36,18 +43,51 @@ function init(): void {
 	wp_register_block_types_from_metadata_collection( __DIR__ . '/build', __DIR__ . '/build/blocks-manifest.php' );
 	wp_set_script_translations( 'blockparty-modal-editor-script', 'blockparty-modal', BLOCKPARTY_MODAL_DIR . '/languages' );
 }
+
 add_action( 'init', __NAMESPACE__ . '\\init', 10, 0 );
+
+/**
+ * Passes the list of blocks allowed as modal triggers to the block editor settings
+ * so the "Attached modal" panel is only shown for those blocks.
+ *
+ * @param array<array-key, mixed> $settings   Block editor settings.
+ * @param \WP_Block_Editor_Context $_context Block editor context (unused).
+ * @return array<array-key, mixed> Modified settings.
+ */
+function block_editor_settings_modal_trigger_blocks( array $settings, \WP_Block_Editor_Context $_context ): array { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- Required by block_editor_settings_all filter signature.
+	/** @psalm-suppress MixedAssignment */
+	$raw = apply_filters(
+		'blockparty_modal_trigger_allowed_blocks',
+		get_default_modal_trigger_allowed_blocks()
+	);
+	$settings['blockpartyModalTriggerAllowedBlocks'] = array_values(
+		array_filter( is_array( $raw ) ? $raw : [], 'is_string' )
+	);
+	return $settings;
+}
+
+add_filter( 'block_editor_settings_all', __NAMESPACE__ . '\\block_editor_settings_modal_trigger_blocks', 10, 2 );
+
+/**
+ * Default list of block names allowed to be used as modal triggers (linkedModalId).
+ *
+ * @return string[] Block names (e.g. 'core/button').
+ */
+function get_default_modal_trigger_allowed_blocks(): array {
+	return [ 'core/button' ];
+}
 
 /**
  * Wraps block output with a trigger wrapper when linkedModalId is set,
  * so the view script can open the modal on click.
+ * Only blocks in the allowed list (filterable) get this behavior; by default only core/button.
  * For core/button, the inner link or button is turned into the trigger (no wrapper).
  *
- * @param string $block_content The block content.
- * @param array  $block         The full block, including attributes.
+ * @param string                   $block_content The block content.
+ * @param array<array-key, mixed>   $block         The full block, including attributes.
  * @return string Filtered block content.
  */
-function render_block_add_modal_trigger( $block_content, $block ) {
+function render_block_add_modal_trigger( $block_content, array $block ) {
 	$linked_modal_id = isset( $block['attrs']['linkedModalId'] )
 		? $block['attrs']['linkedModalId']
 		: '';
@@ -56,9 +96,24 @@ function render_block_add_modal_trigger( $block_content, $block ) {
 		return $block_content;
 	}
 
+	$block_name = (string) ( $block['blockName'] ?? '' );
+	/** @psalm-suppress MixedAssignment */
+	$raw_blocks     = apply_filters(
+		'blockparty_modal_trigger_allowed_blocks',
+		get_default_modal_trigger_allowed_blocks()
+	);
+	$allowed_blocks = array_filter(
+		is_array( $raw_blocks ) ? $raw_blocks : array(),
+		'is_string'
+	);
+
+	if ( '' === $block_name || ! in_array( $block_name, $allowed_blocks, true ) ) {
+		return $block_content;
+	}
+
 	$dialog_id = 'modal-' . $linked_modal_id;
 
-	if ( isset( $block['blockName'] ) && 'core/button' === $block['blockName'] ) {
+	if ( 'core/button' === $block_name ) {
 		$modified = modify_button_block_for_modal_trigger( $block_content, $linked_modal_id, $dialog_id );
 		if ( null !== $modified ) {
 			return $modified;

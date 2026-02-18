@@ -16,7 +16,7 @@ Blockparty Modal is a WordPress plugin that lets you add accessible modal dialog
 - **Modal dialog**: Uses the native `<dialog>` element for semantics and accessibility
 - **Configurable content**: Title (with heading level), rich text content, and optional close button
 - **Close behaviour**: Choose how the modal closes — click outside, close button only, or prevent closing by backdrop
-- **Trigger linking**: Link any block (e.g. core/button) to open a specific modal via `linkedModalId`
+- **Trigger linking**: Link a block to open a specific modal via `linkedModalId`; by default only the Button block is allowed as a trigger (filterable)
 - **Stable modal ID**: Each modal can have a unique ID for trigger association
 - **Layout & styling**: Supports wide and full-width alignment, dimensions, colors, and spacing
 - **Internationalized**: Multilingual support with translation files (French included)
@@ -70,10 +70,26 @@ npm run build
    - **Close behaviour** — "Any" (click outside or close button), "Close button only", or "None"
    - **Close button** — show or hide the close button
    - **Prevent scroll** — lock body scroll when the modal is open
-4. To open the modal from a button:
-   - Add a **Button** block (or another block that supports the modal trigger)
-   - In the block settings, set **Linked Modal ID** to the same value as the modal’s **Modal ID**
+4. To open the modal from a trigger block:
+   - Add a **Button** block (by default, only the Button block can be a modal trigger)
+   - In the block sidebar, open **Attached modal** and select the modal to open
    - On the frontend, clicking that button will open the corresponding modal
+
+### Blocks allowed as modal triggers
+
+By default, only the **core/button** block can be linked to a modal. To allow other blocks (e.g. paragraph, image, or custom blocks), use the filter `blockparty_modal_trigger_allowed_blocks` in your theme or plugin:
+
+```php
+add_filter( 'blockparty_modal_trigger_allowed_blocks', function ( $blocks ) {
+    $blocks[] = 'core/paragraph';
+    $blocks[] = 'my-plugin/cta';
+    return $blocks;
+} );
+```
+
+- **Filter name:** `blockparty_modal_trigger_allowed_blocks`
+- **Parameters:** `array` — List of block names (e.g. `'core/button'`).
+- **Default:** `array( 'core/button' )`
 
 ## 🛠️ Development
 
@@ -231,7 +247,19 @@ This plugin is distributed under the GPL-2.0-or-later license. See the [LICENSE]
 
 ## 📝 Changelog
 
-See [readme.txt](readme.txt) for version history.
+See [readme.txt](readme.txt) for the full version history. Recent highlights:
+
+- **1.0.2**
+  - Filter `blockparty_modal_trigger_allowed_blocks` to control which blocks can be modal triggers; dialog margin and InnerBlocks fixes.
+  - Crawl Modal blocks from patterns
+  - Set min required PHP version to 8.0
+  - Style issues
+
+- **1.0.1**
+  - Filter `blockparty_modal_trigger_allowed_blocks` to control which blocks can be modal triggers; dialog margin and InnerBlocks fixes.
+
+- **1.0.0**
+  - Initial release (Modal block, trigger linking, close behaviour, i18n).
 
 ---
 
