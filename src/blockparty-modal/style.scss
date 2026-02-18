@@ -1,0 +1,57 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-blockparty-modal {
+	--wp-block-blockparty-modal-width: 100%;
+	--wp-block-blockparty-modal-margin: 0 !important;
+	--wp-block-blockparty-modal-padding: 0;
+	--wp-block-blockparty-modal-border-radius: 0;
+	--wp-block-blockparty-modal-border: 1px solid #000;
+	--wp-block-blockparty-modal-backdrop-color: rgba(0, 0, 0, 0.5);
+	--wp-block-blockparty-modal-z-index: 1;
+	--wp-block-blockparty-modal-title-margin: 0;
+	--wp-block-blockparty-modal-title-color: inherit;
+	--wp-block-blockparty-modal-close-button-top: 0;
+	--wp-block-blockparty-modal-close-button-right: 0;
+	--wp-block-blockparty-modal-close-button-gap: 4px;
+
+	z-index: var(--wp-block-blockparty-modal-z-index);
+	border-radius: var(--wp-block-blockparty-modal-border-radius);
+	border: var(--wp-block-blockparty-modal-border);
+	padding: var(--wp-block-blockparty-modal-padding);
+	width: var(--wp-block-blockparty-modal-width);
+
+	&:not(.block-editor-block-list__block) {
+		margin: var(--wp-block-blockparty-modal-margin);
+	}
+
+	&::backdrop {
+		background-color: var(--wp-block-blockparty-modal-backdrop-color);
+	}
+
+	&__title {
+		margin: var(--wp-block-blockparty-modal-title-margin);
+		color: var(--wp-block-blockparty-modal-title-color);
+	}
+
+	&__close-button {
+		display: flex;
+		align-items: center;
+		gap: var(--wp-block-blockparty-modal-close-button-gap);
+		position: absolute;
+		top: var(--wp-block-blockparty-modal-close-button-top);
+		right: var(--wp-block-blockparty-modal-close-button-right);
+		background-color: transparent;
+		padding: 0;
+		border: none;
+		cursor: pointer;
+	}
+}
+
+html:has(.wp-block-blockparty-modal--prevent-scroll[open]) {
+	overflow: hidden;
+}

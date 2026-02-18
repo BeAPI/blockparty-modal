@@ -1,0 +1,31 @@
+{
+	"name": "blockparty-modal",
+	"version": "1.0.0",
+	"description": "Add a modal block to the WordPress editor.",
+	"author": "Be API",
+	"license": "GPL-2.0-or-later",
+	"main": "build/index.js",
+	"scripts": {
+		"build": "wp-scripts build --blocks-manifest",
+		"format": "wp-scripts format",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"packages-update": "wp-scripts packages-update",
+		"plugin-zip": "wp-scripts plugin-zip",
+		"make-pot": "wp i18n make-pot . languages/blockparty-modal.pot --exclude=\"src\" --domain=blockparty-modal",
+		"make-json": "wp i18n make-json languages/blockparty-modal-fr_FR.po languages/ --no-purge",
+		"start": "wp-scripts start --blocks-manifest",
+		"start:env": "wp-env start",
+		"stop:env": "wp-env stop"
+	},
+	"dependencies": {
+		"@beapi/icons": "^1.2.6",
+		"@wordpress/block-editor": "latest",
+		"@wordpress/blocks": "latest",
+		"@wordpress/i18n": "latest"
+	},
+	"devDependencies": {
+		"@wordpress/env": "latest",
+		"@wordpress/scripts": "^31.4.0"
+	}
+}
