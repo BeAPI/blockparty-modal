@@ -21,14 +21,16 @@ import {
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
 
+/* eslint-disable @wordpress/no-unsafe-wp-apis -- ToggleGroupControl is the intended UI for "Closed by" options; allow until stable. */
 import {
 	PanelBody,
 	ToggleControl,
-	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	ToolbarGroup,
 	ToolbarButton,
+	__experimentalToggleGroupControl as ToggleGroupControl,
+	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
+/* eslint-enable @wordpress/no-unsafe-wp-apis */
 import { useMergeRefs } from '@wordpress/compose';
 
 /**
@@ -50,6 +52,10 @@ import { generateStableModalId, MODAL_BLOCK_NAME } from './utils';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
  *
+ * @param {Object}   props               Component props.
+ * @param {string}   props.clientId      Block client ID.
+ * @param {Object}   props.attributes    Block attributes.
+ * @param {Function} props.setAttributes Function to update attributes.
  * @return {Element} Element to render.
  */
 export default function Edit( { clientId, attributes, setAttributes } ) {
@@ -69,7 +75,9 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 
 	const modalBlocksWithSameId = useSelect(
 		( select ) => {
-			if ( ! modalId ) return [];
+			if ( ! modalId ) {
+				return [];
+			}
 			const blocks = select( 'core/block-editor' ).getBlocks();
 			const modals = [];
 			function traverse( list ) {
@@ -80,8 +88,9 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 					) {
 						modals.push( block );
 					}
-					if ( block.innerBlocks?.length )
+					if ( block.innerBlocks?.length ) {
 						traverse( block.innerBlocks );
+					}
 				} );
 			}
 			traverse( blocks );
@@ -106,15 +115,21 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 				setAttributes( { modalId: generateStableModalId() } );
 			}
 		}
+		// Intentionally depend on modalId, clientId, length and setAttributes only.
+		// eslint-disable-next-line react-hooks/exhaustive-deps -- modalBlocksWithSameId identity changes every render.
 	}, [ modalId, clientId, modalBlocksWithSameId.length, setAttributes ] );
 
 	useEffect( () => {
-		if ( ! isPreview ) return;
+		if ( ! isPreview ) {
+			return;
+		}
 
 		let cleanup = null;
 		const timeoutId = setTimeout( () => {
 			const dialog = dialogRef.current;
-			if ( ! dialog ) return;
+			if ( ! dialog ) {
+				return;
+			}
 			dialog.showModal();
 			const onClose = () => setIsPreview( false );
 			dialog.addEventListener( 'close', onClose );
@@ -126,7 +141,9 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 
 		return () => {
 			clearTimeout( timeoutId );
-			if ( cleanup ) cleanup();
+			if ( cleanup ) {
+				cleanup();
+			}
 		};
 	}, [ isPreview ] );
 
@@ -159,6 +176,8 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 				{ ...blockProps }
 				ref={ mergedRef }
 				open={ ! isPreview }
+				// closedBy is a valid dialog attribute (HTML spec); ESLint doesn't recognize it yet.
+				// eslint-disable-next-line react/no-unknown-property
 				closedBy={ isPreview ? 'any' : false }
 				aria-modal="true"
 			>
@@ -167,7 +186,9 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 						className="wp-block-blockparty-modal__title"
 						tagName={ `h${ String( HeadingTag ) }` }
 						value={ title }
-						onChange={ ( title ) => setAttributes( { title } ) }
+						onChange={ ( newTitle ) =>
+							setAttributes( { title: newTitle } )
+						}
 						placeholder={ __( 'Heading…', 'blockparty-modal' ) }
 					/>
 				</div>
@@ -220,8 +241,8 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 							'Determines how the modal will be closed.',
 							'blockparty-modal'
 						) }
-						onChange={ ( closedBy ) =>
-							setAttributes( { closedBy } )
+						onChange={ ( newClosedBy ) =>
+							setAttributes( { closedBy: newClosedBy } )
 						}
 						value={ closedBy }
 					>
@@ -249,8 +270,8 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 							'blockparty-modal'
 						) }
 						checked={ preventScroll }
-						onChange={ ( preventScroll ) =>
-							setAttributes( { preventScroll } )
+						onChange={ ( newPreventScroll ) =>
+							setAttributes( { preventScroll: newPreventScroll } )
 						}
 					/>
 				</PanelBody>
@@ -272,8 +293,10 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 								  )
 						}
 						checked={ enableCloseButton }
-						onChange={ ( enableCloseButton ) =>
-							setAttributes( { enableCloseButton } )
+						onChange={ ( newEnableCloseButton ) =>
+							setAttributes( {
+								enableCloseButton: newEnableCloseButton,
+							} )
 						}
 						disabled={ closedBy === 'none' }
 					/>
@@ -284,8 +307,10 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 							'blockparty-modal'
 						) }
 						checked={ displayIconOnly }
-						onChange={ ( displayIconOnly ) =>
-							setAttributes( { displayIconOnly } )
+						onChange={ ( newDisplayIconOnly ) =>
+							setAttributes( {
+								displayIconOnly: newDisplayIconOnly,
+							} )
 						}
 						disabled={ ! enableCloseButton || closedBy === 'none' }
 					/>

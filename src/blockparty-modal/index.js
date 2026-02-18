@@ -63,13 +63,10 @@ addFilter(
 			return <BlockEdit { ...props } />;
 		}
 
-		const modalOptions = useSelect(
-			( select ) => {
-				const blocks = select( 'core/block-editor' ).getBlocks();
-				return getModalOptionsFromBlocks( blocks );
-			},
-			[ name ]
-		);
+		const modalOptions = useSelect( ( select ) => {
+			const blocks = select( 'core/block-editor' ).getBlocks();
+			return getModalOptionsFromBlocks( blocks );
+		}, [] );
 
 		const options = [
 			{ value: '', label: __( 'None', 'blockparty-modal' ) },
