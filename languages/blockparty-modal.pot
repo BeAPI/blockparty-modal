@@ -1,0 +1,128 @@
+# Copyright (C) 2026 The WordPress Contributors
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Blockparty Modal 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/blockparty-modal\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-02-18T11:23:18+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: blockparty-modal\n"
+
+#. Plugin Name of the plugin
+#: blockparty-modal.php
+msgid "Blockparty Modal"
+msgstr ""
+
+#. Description of the plugin
+#: blockparty-modal.php
+msgid "Modal block for WordPress editor."
+msgstr ""
+
+#. Author of the plugin
+#: blockparty-modal.php
+msgid "Be API Technical Team"
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "Heading…"
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "Close this dialog window"
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "Hide"
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "Preview"
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "Modal settings"
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "Closed by"
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "Determines how the modal will be closed."
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "Any"
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "Close request"
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "None"
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "Prevent page scroll"
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "If enabled, the modal will prevent the user from scrolling the page while the modal is open."
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "Close button"
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "Enable close button"
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "You have chosen to not close the modal by clicking the close button. Therefore, the close button will not be displayed."
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "If enabled, a close button will be displayed in the modal. The close button will close the modal when clicked."
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "Display icon only"
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "If enabled, only the close icon will be displayed in the close button. The label will not be displayed."
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "Modal"
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "Attached modal"
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "Modal to open when block is clicked"
+msgstr ""
+
+#: build/blockparty-modal/index.js:1
+msgid "Select a modal…"
+msgstr ""
+
+#: build/blockparty-modal/block.json
+msgctxt "block title"
+msgid "Modal"
+msgstr ""
+
+#: build/blockparty-modal/block.json
+msgctxt "block description"
+msgid "Insert a modal dialog that opens on trigger. Configure content and behaviour in the editor; the modal is displayed on the frontend when activated."
+msgstr ""

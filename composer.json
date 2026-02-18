@@ -1,0 +1,60 @@
+{
+	"name": "beapi/blockparty-modal",
+	"description": "Add a block to display an embedded frame in the WordPress editor.",
+	"type": "wordpress-plugin",
+	"keywords": ["wordpress", "plugin", "block", "modal", "dialog", "editor"],
+	"license": "GPL-2.0-or-later",
+	"authors": [
+		{
+			"name": "BeAPI",
+			"email": "technical@beapi.fr",
+			"homepage":"https://beapi.fr",
+			"role":"Company"
+		}
+	],
+	"config": {
+		"optimize-autoloader": true,
+		"preferred-install": "dist",
+		"sort-packages": true,
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true,
+			"composer/installers": true,
+			"phpro/grumphp-shim": true
+		},
+		"platform": {
+			"php": "8.3.28"
+		}
+	},
+	"require": {
+		"php": ">=8.1",
+		"ext-json": "*",
+		"composer/installers": "^1.0 || ^2.0"
+	},
+	"require-dev": {
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
+		"humanmade/psalm-plugin-wordpress": "3.1.1",
+		"php-parallel-lint/php-parallel-lint": "^1.3",
+		"phpcompatibility/php-compatibility": "^9.3",
+		"phpro/grumphp-shim": "^1.5",
+		"roave/security-advisories": "dev-latest",
+		"roots/wordpress-no-content": "^6.0",
+		"squizlabs/php_codesniffer": "^3.7",
+		"vimeo/psalm": "6.15.1",
+		"wp-cli/wp-cli": "^2.6",
+		"wp-coding-standards/wpcs": "^3.0"
+	},
+	"autoload-dev": {
+	},
+	"scripts": {
+		"cs": "./vendor/bin/phpcs",
+		"cb": "./vendor/bin/phpcbf",
+		"psalm": "./vendor/bin/psalm",
+		"phpunit": "phpunit"
+	},
+	"scripts-descriptions": {
+		"cs": "Run PHP CodeSniffer on codebase using custom ruleset.",
+		"cb": "Run PHP Code Beautifier and Fixer on codebase using custom ruleset.",
+		"psalm": "Run psalm on codebase using custom ruleset.",
+		"phpunit": "Run PHP unit tests."
+	}
+}
