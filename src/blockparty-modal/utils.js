@@ -26,34 +26,33 @@ export function generateStableModalId() {
 }
 
 /**
- * Recursively collect blockparty/modal blocks with modalId and title.
+ * Collect modal options from the block editor store using getClientIdsWithDescendants
+ * and getBlock, so modals inside reusable blocks (core/block) and patterns are included.
  *
- * @param {Object[]} blocks - Block list.
+ * @param {Function} select - The wp.data select function (e.g. from useSelect).
  * @return {Object[]} Options for ComboboxControl.
  */
-export function getModalOptionsFromBlocks( blocks ) {
-	const options = [];
-	function traverse( blockList ) {
-		if ( ! blockList || ! blockList.length ) {
-			return;
-		}
-		for ( const block of blockList ) {
-			if ( block.name === MODAL_BLOCK_NAME ) {
-				const modalId = block.attributes?.modalId || block.clientId;
-				const title =
-					block.attributes?.title?.trim() ||
-					__( 'Modal', 'blockparty-modal' );
-				options.push( {
-					value: modalId,
-					label: title || `#${ modalId.slice( 0, 8 ) }`,
-				} );
-			}
-			if ( block.innerBlocks?.length ) {
-				traverse( block.innerBlocks );
-			}
-		}
+export function getModalOptionsFromEditor( select ) {
+	const blockEditor = select( 'core/block-editor' );
+	const clientIds = blockEditor.getClientIdsWithDescendants();
+	if ( ! Array.isArray( clientIds ) ) {
+		return [];
 	}
-	traverse( blocks );
+	const options = [];
+	for ( const clientId of clientIds ) {
+		const block = blockEditor.getBlock( clientId );
+		if ( ! block || block.name !== MODAL_BLOCK_NAME ) {
+			continue;
+		}
+		const modalId = block.attributes?.modalId || block.clientId;
+		const title =
+			block.attributes?.title?.trim() ||
+			__( 'Modal', 'blockparty-modal' );
+		options.push( {
+			value: modalId,
+			label: title || `#${ String( modalId ).slice( 0, 8 ) }`,
+		} );
+	}
 	return options;
 }
 

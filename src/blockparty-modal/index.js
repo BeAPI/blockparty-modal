@@ -23,7 +23,7 @@ import metadata from './block.json';
 import {
 	MODAL_BLOCK_NAME,
 	LINKED_MODAL_ATTR,
-	getModalOptionsFromBlocks,
+	getModalOptionsFromEditor,
 	addLinkedModalAttribute,
 } from './utils';
 
@@ -74,8 +74,7 @@ addFilter(
 		}
 
 		const modalOptions = useSelect( ( select ) => {
-			const blocks = select( 'core/block-editor' ).getBlocks();
-			return getModalOptionsFromBlocks( blocks );
+			return getModalOptionsFromEditor( select );
 		}, [] );
 
 		const options = [
