@@ -2,7 +2,7 @@
 Contributors:      Be API Technical Team
 Tags:              block
 Tested up to:      6.8
-Stable tag:        1.0.0
+Stable tag:        1.0.1
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,10 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+
+= 1.0.1 =
+* Fix margin style for dialog element; set to auto by default instead of 0.
+* Remove dupplicated InnerBlocks.Content
 
 = 1.0.0 =
 * Initial Release
