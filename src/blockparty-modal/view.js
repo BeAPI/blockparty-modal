@@ -38,7 +38,9 @@ domReady( () => {
 	);
 	triggers.forEach( ( trigger ) => {
 		const modalId = trigger.getAttribute( 'data-modal-trigger' );
-		if ( ! modalId ) return;
+		if ( ! modalId ) {
+			return;
+		}
 
 		trigger.addEventListener( 'click', ( e ) => {
 			e.preventDefault();

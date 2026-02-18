@@ -1,7 +1,5 @@
 /**
  * Utility functions for the blockparty/modal block.
- *
- * @package blockparty-modal
  */
 
 import { __ } from '@wordpress/i18n';
@@ -31,12 +29,14 @@ export function generateStableModalId() {
  * Recursively collect blockparty/modal blocks with modalId and title.
  *
  * @param {Object[]} blocks - Block list.
- * @returns {Object[]} Options for ComboboxControl.
+ * @return {Object[]} Options for ComboboxControl.
  */
 export function getModalOptionsFromBlocks( blocks ) {
 	const options = [];
 	function traverse( blockList ) {
-		if ( ! blockList || ! blockList.length ) return;
+		if ( ! blockList || ! blockList.length ) {
+			return;
+		}
 		for ( const block of blockList ) {
 			if ( block.name === MODAL_BLOCK_NAME ) {
 				const modalId = block.attributes?.modalId || block.clientId;
@@ -61,7 +61,7 @@ export function getModalOptionsFromBlocks( blocks ) {
  * Merges linkedModalId attribute into block type settings (for filter / re-registration).
  *
  * @param {Object} settings - Block type settings.
- * @returns {Object} Settings with linkedModalId attribute.
+ * @return {Object} Settings with linkedModalId attribute.
  */
 export function addLinkedModalAttribute( settings ) {
 	return {

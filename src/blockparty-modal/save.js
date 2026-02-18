@@ -49,6 +49,8 @@ export default function save( { attributes } ) {
 			{ ...useBlockProps.save( customProps ) }
 			id={ dialogId }
 			aria-modal="true"
+			// closedBy is a valid dialog attribute (HTML spec); ESLint doesn't recognize it yet.
+			// eslint-disable-next-line react/no-unknown-property
 			closedBy={ closedBy }
 		>
 			<div className="wp-block-blockparty-modal__header">
