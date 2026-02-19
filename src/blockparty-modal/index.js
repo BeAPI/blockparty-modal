@@ -89,18 +89,18 @@ addFilter(
 			return <BlockEdit { ...props } />;
 		}
 
-		const allowedBlocks = useSelect( ( select ) => {
-			const settings = select( 'core/block-editor' ).getSettings();
+		const triggerAllowedBlocks = useSelect( ( storeSelect ) => {
+			const settings = storeSelect( 'core/block-editor' ).getSettings();
 			const list = settings?.blockpartyModalTriggerAllowedBlocks;
 			return Array.isArray( list ) ? list : [ 'core/button' ];
 		}, [] );
 
-		if ( ! allowedBlocks.includes( name ) ) {
+		if ( ! triggerAllowedBlocks.includes( name ) ) {
 			return <BlockEdit { ...props } />;
 		}
 
-		const modalOptions = useSelect( ( select ) => {
-			return getModalOptionsFromEditor( select );
+		const modalOptions = useSelect( ( storeSelect ) => {
+			return getModalOptionsFromEditor( storeSelect );
 		}, [] );
 
 		const options = [
