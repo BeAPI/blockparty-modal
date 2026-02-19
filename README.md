@@ -249,6 +249,9 @@ This plugin is distributed under the GPL-2.0-or-later license. See the [LICENSE]
 
 See [readme.txt](readme.txt) for the full version history. Recent highlights:
 
+- **1.0.3**
+  - Fix: prevent adding linkedModalId attribute to non allowed blocks.
+
 - **1.0.2**
   - Filter `blockparty_modal_trigger_allowed_blocks` to control which blocks can be modal triggers; dialog margin and InnerBlocks fixes.
   - Crawl Modal blocks from patterns
