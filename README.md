@@ -251,11 +251,11 @@ See [readme.txt](readme.txt) for the full version history. Recent highlights:
 
 - **1.0.3**
   - Fix: prevent adding linkedModalId attribute to non allowed blocks.
+  - Set min required PHP version to 8.1
 
 - **1.0.2**
   - Filter `blockparty_modal_trigger_allowed_blocks` to control which blocks can be modal triggers; dialog margin and InnerBlocks fixes.
   - Crawl Modal blocks from patterns
-  - Set min required PHP version to 8.1
   - Style issues
 
 - **1.0.1**
