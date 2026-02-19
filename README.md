@@ -2,7 +2,7 @@
 
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0)
 [![WordPress: 6.8+](https://img.shields.io/badge/WordPress-6.8+-green.svg)](https://wordpress.org/)
-[![PHP: 8.0+](https://img.shields.io/badge/PHP-8.0+-purple.svg)](https://php.net/)
+[![PHP: 8.1+](https://img.shields.io/badge/PHP-8.1+-purple.svg)](https://php.net/)
 
 A WordPress plugin that adds a custom Gutenberg block to display a modal dialog in the editor and on the frontend. The modal opens when a trigger (e.g. a button) is activated.
 
@@ -255,7 +255,7 @@ See [readme.txt](readme.txt) for the full version history. Recent highlights:
 - **1.0.2**
   - Filter `blockparty_modal_trigger_allowed_blocks` to control which blocks can be modal triggers; dialog margin and InnerBlocks fixes.
   - Crawl Modal blocks from patterns
-  - Set min required PHP version to 8.0
+  - Set min required PHP version to 8.1
   - Style issues
 
 - **1.0.1**

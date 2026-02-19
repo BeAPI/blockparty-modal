@@ -4,7 +4,7 @@
  * Description:       Modal block for WordPress editor.
  * Version:           1.0.3
  * Requires at least: 6.8
- * Requires PHP:      8.0
+ * Requires PHP:      8.1
  * Author:            Be API Technical Team
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
