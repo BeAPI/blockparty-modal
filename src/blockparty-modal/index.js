@@ -1,11 +1,11 @@
 /**
- * Registers the modal block and adds "Open modal on click" to all blocks.
+ * Registers the modal block and adds "Open modal on click" to blocks allowed as triggers.
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
 import { registerBlockType, getBlockTypes } from '@wordpress/blocks';
 import { addFilter } from '@wordpress/hooks';
-import { useSelect } from '@wordpress/data';
+import { useSelect, select } from '@wordpress/data';
 import { InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, ComboboxControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -33,18 +33,44 @@ registerBlockType( metadata.name, {
 	save,
 } );
 
-// Add linkedModalId attribute to all block types (so any block can be a trigger).
+/**
+ * Returns the list of block names allowed as modal triggers (same as filter blockparty_modal_trigger_allowed_blocks).
+ * Used so we only add linkedModalId to those blocks.
+ *
+ * @return {string[]} Allowed block names.
+ */
+function getModalTriggerAllowedBlocks() {
+	try {
+		const settings = select( 'core/block-editor' ).getSettings();
+		const list = settings?.blockpartyModalTriggerAllowedBlocks;
+		return Array.isArray( list ) ? list : [ 'core/button' ];
+	} catch {
+		return [ 'core/button' ];
+	}
+}
+
+// Add linkedModalId attribute only to blocks allowed as modal triggers.
 addFilter(
 	'blocks.registerBlockType',
 	'blockparty-modal/add-linked-modal-attribute',
-	addLinkedModalAttribute
+	( settings, blockName ) => {
+		const allowedBlocks = getModalTriggerAllowedBlocks();
+		if ( ! allowedBlocks.includes( blockName ) ) {
+			return settings;
+		}
+		return addLinkedModalAttribute( settings );
+	}
 );
 
 // Blocks registered before our script loaded (e.g. core blocks) didn't get the
-// filter — re-register them so linkedModalId is persisted on save.
+// filter — re-register only allowed blocks so linkedModalId is persisted on save.
+const allowedBlocks = getModalTriggerAllowedBlocks();
 const blockTypes = getBlockTypes();
 blockTypes.forEach( ( blockType ) => {
-	if ( ! blockType.attributes?.[ LINKED_MODAL_ATTR ] ) {
+	if (
+		allowedBlocks.includes( blockType.name ) &&
+		! blockType.attributes?.[ LINKED_MODAL_ATTR ]
+	) {
 		registerBlockType(
 			blockType.name,
 			addLinkedModalAttribute( blockType )
@@ -63,18 +89,18 @@ addFilter(
 			return <BlockEdit { ...props } />;
 		}
 
-		const allowedBlocks = useSelect( ( select ) => {
-			const settings = select( 'core/block-editor' ).getSettings();
+		const triggerAllowedBlocks = useSelect( ( storeSelect ) => {
+			const settings = storeSelect( 'core/block-editor' ).getSettings();
 			const list = settings?.blockpartyModalTriggerAllowedBlocks;
 			return Array.isArray( list ) ? list : [ 'core/button' ];
 		}, [] );
 
-		if ( ! allowedBlocks.includes( name ) ) {
+		if ( ! triggerAllowedBlocks.includes( name ) ) {
 			return <BlockEdit { ...props } />;
 		}
 
-		const modalOptions = useSelect( ( select ) => {
-			return getModalOptionsFromEditor( select );
+		const modalOptions = useSelect( ( storeSelect ) => {
+			return getModalOptionsFromEditor( storeSelect );
 		}, [] );
 
 		const options = [

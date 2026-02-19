@@ -1,6 +1,6 @@
 {
 	"name": "blockparty-modal",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "Add a modal block to the WordPress editor.",
 	"author": "Be API",
 	"license": "GPL-2.0-or-later",
@@ -34,5 +34,8 @@
 	"devDependencies": {
 		"@wordpress/env": "latest",
 		"@wordpress/scripts": "^31.4.0"
+	},
+	"volta": {
+		"node": "22.22.0"
 	}
 }

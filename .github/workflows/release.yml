@@ -42,14 +42,14 @@ jobs:
         name: "Build project PHP"
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.3
+          php-version: 8.1
       - run: composer install --prefer-dist --no-dev -o --ignore-platform-reqs
 
       - id: setup-node
         name: "Setup Node.js"
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: 'package.json'
           cache: 'npm'
 
       - id: build-js
