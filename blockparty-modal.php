@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Blockparty Modal
  * Description:       Modal block for WordPress editor.
- * Version:           1.0.3
+ * Version:           1.0.4
  * Requires at least: 6.8
  * Requires PHP:      8.1
  * Author:            Be API Technical Team
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'BLOCKPARTY_MODAL_VERSION', '1.0.3' );
+define( 'BLOCKPARTY_MODAL_VERSION', '1.0.4' );
 define( 'BLOCKPARTY_MODAL_URL', plugin_dir_url( __FILE__ ) );
 define( 'BLOCKPARTY_MODAL_DIR', plugin_dir_path( __FILE__ ) );
 
@@ -63,6 +63,16 @@ function block_editor_settings_modal_trigger_blocks( array $settings, \WP_Block_
 	$settings['blockpartyModalTriggerAllowedBlocks'] = array_values(
 		array_filter( is_array( $raw ) ? $raw : [], 'is_string' )
 	);
+
+	/** @psalm-suppress MixedAssignment */
+	$inner_raw                                     = apply_filters(
+		'blockparty_modal_inner_allowed_blocks',
+		get_default_modal_inner_allowed_blocks()
+	);
+	$settings['blockpartyModalInnerAllowedBlocks'] = array_values(
+		array_filter( is_array( $inner_raw ) ? $inner_raw : [], 'is_string' )
+	);
+
 	return $settings;
 }
 
@@ -75,6 +85,36 @@ add_filter( 'block_editor_settings_all', __NAMESPACE__ . '\\block_editor_setting
  */
 function get_default_modal_trigger_allowed_blocks(): array {
 	return [ 'core/button' ];
+}
+
+/**
+ * Default list of block names allowed inside the modal block (InnerBlocks).
+ *
+ * @return string[] Block names (e.g. 'core/paragraph').
+ */
+function get_default_modal_inner_allowed_blocks(): array {
+	return [
+		'core/paragraph',
+		'core/heading',
+		'core/list',
+		'core/list-item',
+		'core/file',
+		'core/quote',
+		'core/math',
+		'core/details',
+		'core/pullquote',
+		'core/table',
+		'core/embed',
+		'core/shortcode',
+		'core/html',
+		'core/separator',
+		'core/image',
+		'core/gallery',
+		'core/video',
+		'core/buttons',
+		'core/button',
+		'core/spacer',
+	];
 }
 
 /**

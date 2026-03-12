@@ -45,6 +45,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
+= 1.0.4 =
+* Filter `blockparty_modal_inner_allowed_blocks` to control allowed blocks in the modal.
+
 = 1.0.3 =
 * Fix: prevent adding linkedModalId attribute to non allowed blocks.
 * Set min required PHP version to 8.1
