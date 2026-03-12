@@ -46,6 +46,30 @@ import { useState, useRef, useEffect } from '@wordpress/element';
 
 import { generateStableModalId, MODAL_BLOCK_NAME } from './utils';
 
+/** Default block names allowed inside the modal (filterable via blockparty_modal_inner_allowed_blocks). */
+const DEFAULT_INNER_ALLOWED_BLOCKS = [
+	'core/paragraph',
+	'core/heading',
+	'core/list',
+	'core/list-item',
+	'core/file',
+	'core/quote',
+	'core/math',
+	'core/details',
+	'core/pullquote',
+	'core/table',
+	'core/embed',
+	'core/shortcode',
+	'core/html',
+	'core/separator',
+	'core/image',
+	'core/gallery',
+	'core/video',
+	'core/buttons',
+	'core/button',
+	'core/spacer',
+];
+
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -147,28 +171,13 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 		};
 	}, [ isPreview ] );
 
-	const ALLOWED_BLOCKS = [
-		'core/paragraph',
-		'core/heading',
-		'core/list',
-		'core/list-item',
-		'core/file',
-		'core/quote',
-		'core/math',
-		'core/details',
-		'core/pullquote',
-		'core/table',
-		'core/embed',
-		'core/shortcode',
-		'core/html',
-		'core/separator',
-		'core/image',
-		'core/gallery',
-		'core/video',
-		'core/buttons',
-		'core/button',
-		'core/spacer',
-	];
+	const allowedBlocks = useSelect( ( storeSelect ) => {
+		const settings = storeSelect( 'core/block-editor' ).getSettings();
+		const list = settings?.blockpartyModalInnerAllowedBlocks;
+		return Array.isArray( list ) && list.length > 0
+			? list
+			: DEFAULT_INNER_ALLOWED_BLOCKS;
+	}, [] );
 
 	return (
 		<>
@@ -193,7 +202,7 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 					/>
 				</div>
 				<div className="wp-block-blockparty-modal__content">
-					<InnerBlocks allowedBlocks={ ALLOWED_BLOCKS } />
+					<InnerBlocks allowedBlocks={ allowedBlocks } />
 				</div>
 				{ enableCloseButton && closedBy !== 'none' && (
 					<button
