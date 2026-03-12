@@ -1,0 +1,73 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "blockparty/modal",
+  "version": "1.0.4",
+  "title": "Modal",
+  "category": "widgets",
+  "description": "Insert a modal dialog that opens on trigger. Configure content and behaviour in the editor; the modal is displayed on the frontend when activated.",
+  "attributes": {
+    "headingLevel": {
+      "type": "number",
+      "default": 2
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "content": {
+      "type": "string",
+      "default": ""
+    },
+    "modalId": {
+      "type": "string",
+      "default": ""
+    },
+    "closedBy": {
+      "type": "string",
+      "default": "any",
+      "enum": [
+        "any",
+        "closerequest",
+        "none"
+      ]
+    },
+    "enableCloseButton": {
+      "type": "boolean",
+      "default": true
+    },
+    "displayIconOnly": {
+      "type": "boolean",
+      "default": false
+    },
+    "preventScroll": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "example": {},
+  "supports": {
+    "align": [
+      "wide",
+      "full"
+    ],
+    "dimensions": {
+      "height": true,
+      "minHeight": true
+    },
+    "color": {
+      "background": true,
+      "text": true
+    },
+    "spacing": {
+      "padding": true,
+      "blockGap": true
+    },
+    "html": false
+  },
+  "textdomain": "blockparty-modal",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js"
+}
