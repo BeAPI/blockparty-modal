@@ -91,6 +91,27 @@ add_filter( 'blockparty_modal_trigger_allowed_blocks', function ( $blocks ) {
 - **Parameters:** `array` — List of block names (e.g. `'core/button'`).
 - **Default:** `array( 'core/button' )`
 
+### Blocks allowed inside the modal
+
+The modal block uses InnerBlocks for its content. By default, a fixed set of blocks is allowed (paragraph, heading, list, image, button, etc.). To change which blocks can be inserted inside the modal, use the filter `blockparty_modal_inner_allowed_blocks` in your theme or plugin:
+
+```php
+add_filter( 'blockparty_modal_inner_allowed_blocks', function ( array $blocks ) {
+    // Add more blocks
+    $blocks[] = 'core/cover';
+    $blocks[] = 'core/group';
+    return $blocks;
+} );
+
+// Or restrict to a subset
+add_filter( 'blockparty_modal_inner_allowed_blocks', function () {
+    return [ 'core/paragraph', 'core/image', 'core/button' ];
+} );
+```
+
+- **Filter name:** `blockparty_modal_inner_allowed_blocks`
+- **Parameters:** `array` — List of block names (e.g. `'core/paragraph'`, `'core/button'`). Default list includes paragraph, heading, list, image, gallery, video, buttons, embed, shortcode, etc.
+
 ## 🛠️ Development
 
 ### Project Structure
