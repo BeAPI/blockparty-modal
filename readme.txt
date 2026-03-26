@@ -45,6 +45,10 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
+= 1.0.5 =
+* Add `blueprint.json` to test the plugin on WordPress Playground.
+* Add `screen-reader-text` class to close button element when display icon only is selected.
+
 = 1.0.4 =
 * Filter `blockparty_modal_inner_allowed_blocks` to control allowed blocks in the modal.
 
