@@ -2,7 +2,7 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "blockparty/modal",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"title": "Modal",
 	"category": "widgets",
 	"description": "Insert a modal dialog that opens on trigger. Configure content and behaviour in the editor; the modal is displayed on the frontend when activated.",
@@ -26,11 +26,7 @@
 		"closedBy": {
 			"type": "string",
 			"default": "any",
-			"enum": [
-				"any",
-				"closerequest",
-				"none"
-			]
+			"enum": [ "any", "closerequest", "none" ]
 		},
 		"enableCloseButton": {
 			"type": "boolean",
@@ -47,10 +43,7 @@
 	},
 	"example": {},
 	"supports": {
-		"align": [
-			"wide",
-			"full"
-		],
+		"align": [ "wide", "full" ],
 		"dimensions": {
 			"height": true,
 			"minHeight": true
