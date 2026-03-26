@@ -209,7 +209,13 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 						type="button"
 						className="wp-block-blockparty-modal__close-button"
 					>
-						<span className={ displayIconOnly ? 'sr-only' : '' }>
+						<span
+							className={
+								displayIconOnly
+									? 'screen-reader-text sr-only'
+									: ''
+							}
+						>
 							{ __(
 								'Close this dialog window',
 								'blockparty-modal'

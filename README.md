@@ -1,6 +1,7 @@
 # Blockparty — Modal
 
 [![Test with WordPress Playground](https://img.shields.io/badge/Test%20with-WordPress%20Playground-0073aa?style=for-the-badge&logo=wordpress&logoColor=white)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/beapi/blockparty-modal/refs/heads/main/blueprint.json)
+
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0)
 [![WordPress: 6.8+](https://img.shields.io/badge/WordPress-6.8+-green.svg)](https://wordpress.org/)
 [![PHP: 8.1+](https://img.shields.io/badge/PHP-8.1+-purple.svg)](https://php.net/)
@@ -270,6 +271,10 @@ This plugin is distributed under the GPL-2.0-or-later license. See the [LICENSE]
 ## 📝 Changelog
 
 See [readme.txt](readme.txt) for the full version history. Recent highlights:
+
+- **1.0.5**
+  - Add `blueprint.json` to test the plugin on WordPress Playground.
+  - Add `screen-reader-text` class to close button element when display icon only is selected.
 
 - **1.0.4**
   - Filter `blockparty_modal_inner_allowed_blocks` to control allowed blocks in the modal.
