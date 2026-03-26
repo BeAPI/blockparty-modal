@@ -1,32 +1,22 @@
 /**
- * Retrieves the translation of text.
+ * Prior save output for validation of existing post content.
  *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
+ * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-deprecation/
  */
 import { __ } from '@wordpress/i18n';
-
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
 import { useBlockProps, InnerBlocks, RichText } from '@wordpress/block-editor';
-
 import { Icon, close } from '@wordpress/icons';
 
-/**
- * The save function defines the way in which the different attributes should
- * be combined into the final markup, which is then serialized by the block
- * editor into `post_content`.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#save
- *
- * @return {Element} Element to render.
- */
 const MODAL_ID_PREFIX = 'modal-';
 
-export default function save( { attributes } ) {
+/**
+ * Save markup before `screen-reader-text` was added to the close label span (v1.0.4+).
+ *
+ * @param {Object} props            Block props.
+ * @param {Object} props.attributes Block attributes.
+ * @return {JSX.Element} Element to render.
+ */
+function saveV1CloseLabelSrOnly( { attributes } ) {
 	const {
 		closedBy,
 		displayIconOnly,
@@ -49,7 +39,6 @@ export default function save( { attributes } ) {
 			{ ...useBlockProps.save( customProps ) }
 			id={ dialogId }
 			aria-modal="true"
-			// closedBy is a valid dialog attribute (HTML spec); ESLint doesn't recognize it yet.
 			// eslint-disable-next-line react/no-unknown-property
 			closedBy={ closedBy }
 		>
@@ -68,11 +57,7 @@ export default function save( { attributes } ) {
 					type="button"
 					className="wp-block-blockparty-modal__close-button"
 				>
-					<span
-						className={
-							displayIconOnly ? 'screen-reader-text sr-only' : ''
-						}
-					>
+					<span className={ displayIconOnly ? 'sr-only' : '' }>
 						{ __( 'Close this dialog window', 'blockparty-modal' ) }
 					</span>
 					<Icon icon={ close } />
@@ -81,3 +66,9 @@ export default function save( { attributes } ) {
 		</dialog>
 	);
 }
+
+export default [
+	{
+		save: saveV1CloseLabelSrOnly,
+	},
+];
