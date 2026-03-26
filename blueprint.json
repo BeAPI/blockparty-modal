@@ -16,8 +16,8 @@
 			"pluginData": {
 				"resource": "git:directory",
 				"url": "https://github.com/BeAPI/blockparty-modal",
-				"ref": "chore/blueprint",
-				"refType": "branch"
+				"ref": "1.0.5",
+				"refType": "tag"
 			},
 			"options": {
 				"activate": true,
