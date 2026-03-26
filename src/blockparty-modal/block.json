@@ -26,11 +26,7 @@
 		"closedBy": {
 			"type": "string",
 			"default": "any",
-			"enum": [
-				"any",
-				"closerequest",
-				"none"
-			]
+			"enum": [ "any", "closerequest", "none" ]
 		},
 		"enableCloseButton": {
 			"type": "boolean",
@@ -47,10 +43,7 @@
 	},
 	"example": {},
 	"supports": {
-		"align": [
-			"wide",
-			"full"
-		],
+		"align": [ "wide", "full" ],
 		"dimensions": {
 			"height": true,
 			"minHeight": true
