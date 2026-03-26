@@ -1,0 +1,28 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"landingPage": "/wp-admin/post-new.php",
+	"preferredVersions": {
+		"php": "8.1",
+		"wp": "latest"
+	},
+	"steps": [
+		{
+			"step": "login",
+			"username": "admin",
+			"password": "password"
+		},
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "git:directory",
+				"url": "https://github.com/BeAPI/blockparty-modal",
+				"ref": "1.0.4",
+				"refType": "tag"
+			},
+			"options": {
+				"activate": true,
+				"targetFolderName": "blockparty-modal"
+			}
+		}
+	]
+}
