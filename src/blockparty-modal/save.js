@@ -70,7 +70,12 @@ export default function save( { attributes } ) {
 					className="wp-block-blockparty-modal__close-button"
 				>
 					<span className={ displayIconOnly ? 'sr-only' : '' }>
-						{ closeButtonLabel ? closeButtonLabel : __( 'Close this dialog window', 'blockparty-modal' ) }
+						{ closeButtonLabel
+							? closeButtonLabel
+							: __(
+									'Close this dialog window',
+									'blockparty-modal'
+							  ) }
 					</span>
 					<Icon icon={ close } />
 				</button>
