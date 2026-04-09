@@ -4,15 +4,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Blockparty Modal 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/blockparty-modal\n"
-"POT-Creation-Date: 2026-02-18T11:23:18+00:00\n"
-"PO-Revision-Date: 2026-02-18 12:29+0100\n"
+"POT-Creation-Date: 2026-04-09T12:40:41+00:00\n"
+"PO-Revision-Date: 2026-04-09 14:41+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-Domain: blockparty-modal\n"
 
 #. Plugin Name of the plugin
@@ -30,51 +30,54 @@ msgstr "Bloc de fenêtre modale pour l’éditeur WordPress."
 msgid "Be API Technical Team"
 msgstr "L'équipe technique de Be API"
 
-#: build/blockparty-modal/index.js:1
+#: build/blockparty-modal/index.js:193 build/blockparty-modal/index.js:203
 msgid "Heading…"
 msgstr "Titre…"
 
-#: build/blockparty-modal/index.js:1
+#: build/blockparty-modal/index.js:205 build/blockparty-modal/index.js:273
+#: build/blockparty-modal/index.js:519 build/blockparty-modal/index.js:215
+#: build/blockparty-modal/index.js:319 build/blockparty-modal/index.js:558
 msgid "Close this dialog window"
 msgstr "Fermer cette fenêtre modale"
 
-#: build/blockparty-modal/index.js:1
+#: build/blockparty-modal/index.js:222 build/blockparty-modal/index.js:236
 msgid "Hide"
 msgstr "Cacher"
 
-#: build/blockparty-modal/index.js:1
+#: build/blockparty-modal/index.js:222 build/blockparty-modal/index.js:237
 msgid "Preview"
 msgstr "Prévisualiser"
 
-#: build/blockparty-modal/index.js:1
+#: build/blockparty-modal/index.js:227 build/blockparty-modal/index.js:243
 msgid "Modal settings"
 msgstr "Réglages de la modale"
 
-#: build/blockparty-modal/index.js:1
+#: build/blockparty-modal/index.js:231 build/blockparty-modal/index.js:247
 msgid "Closed by"
 msgstr "Fermé par"
 
-#: build/blockparty-modal/index.js:1
+#: build/blockparty-modal/index.js:232 build/blockparty-modal/index.js:248
 msgid "Determines how the modal will be closed."
 msgstr "Choisissez comment la fenêtre doit être fermée."
 
-#: build/blockparty-modal/index.js:1
+#: build/blockparty-modal/index.js:238 build/blockparty-modal/index.js:258
 msgid "Any"
 msgstr "Tout"
 
-#: build/blockparty-modal/index.js:1
+#: build/blockparty-modal/index.js:241 build/blockparty-modal/index.js:262
 msgid "Close request"
 msgstr "Requête de fermeture"
 
-#: build/blockparty-modal/index.js:1
+#: build/blockparty-modal/index.js:244 build/blockparty-modal/index.js:407
+#: build/blockparty-modal/index.js:266 build/blockparty-modal/index.js:448
 msgid "None"
 msgstr "Aucun"
 
-#: build/blockparty-modal/index.js:1
+#: build/blockparty-modal/index.js:249 build/blockparty-modal/index.js:272
 msgid "Prevent page scroll"
 msgstr "Éviter le défilement de la page"
 
-#: build/blockparty-modal/index.js:1
+#: build/blockparty-modal/index.js:250 build/blockparty-modal/index.js:276
 msgid ""
 "If enabled, the modal will prevent the user from scrolling the page while "
 "the modal is open."
@@ -82,15 +85,15 @@ msgstr ""
 "Si cette option est activée, la fenêtre une fois ouverte empêchera "
 "l’utilisateur de défiler dans la page."
 
-#: build/blockparty-modal/index.js:1
+#: build/blockparty-modal/index.js:257 build/blockparty-modal/index.js:286
 msgid "Close button"
 msgstr "Bouton de fermeture"
 
-#: build/blockparty-modal/index.js:1
+#: build/blockparty-modal/index.js:259 build/blockparty-modal/index.js:288
 msgid "Enable close button"
 msgstr "Activer le bouton de fermeture"
 
-#: build/blockparty-modal/index.js:1
+#: build/blockparty-modal/index.js:260 build/blockparty-modal/index.js:294
 msgid ""
 "You have chosen to not close the modal by clicking the close button. "
 "Therefore, the close button will not be displayed."
@@ -99,7 +102,7 @@ msgstr ""
 "modale en cliquant sur le bouton de fermeture. Par conséquent, ce bouton ne "
 "s'affichera pas."
 
-#: build/blockparty-modal/index.js:1
+#: build/blockparty-modal/index.js:260 build/blockparty-modal/index.js:298
 msgid ""
 "If enabled, a close button will be displayed in the modal. The close button "
 "will close the modal when clicked."
@@ -107,11 +110,22 @@ msgstr ""
 "Si cette option est activée, le bouton de fermeture sera affiché dans la "
 "fenêtre modale. Au clic sur ce bouton, la fenêtre modale sera fermée."
 
-#: build/blockparty-modal/index.js:1
+#: build/blockparty-modal/index.js:267 build/blockparty-modal/index.js:313
+msgid "Close button label"
+msgstr "Libellé du bouton de fermeture"
+
+#: build/blockparty-modal/index.js:268 build/blockparty-modal/index.js:314
+msgid ""
+"The label of the close button. If not set, the default label will be used."
+msgstr ""
+"Le libellé du bouton de fermeture. Si non renseignée, le libellé par défaut "
+"sera utilisé."
+
+#: build/blockparty-modal/index.js:275 build/blockparty-modal/index.js:323
 msgid "Display icon only"
 msgstr "Afficher seulement l’icône"
 
-#: build/blockparty-modal/index.js:1
+#: build/blockparty-modal/index.js:276 build/blockparty-modal/index.js:324
 msgid ""
 "If enabled, only the close icon will be displayed in the close button. The "
 "label will not be displayed."
@@ -119,21 +133,21 @@ msgstr ""
 "Si cette option est activée, seul l'icône de fermeture s'affichera sur le "
 "bouton de fermeture. Le libellé ne sera pas affiché visuellement."
 
-#: build/blockparty-modal/index.js:1
-msgid "Modal"
-msgstr "Modale"
-
-#: build/blockparty-modal/index.js:1
+#: build/blockparty-modal/index.js:415 build/blockparty-modal/index.js:459
 msgid "Attached modal"
 msgstr "Fenêtre modale jointe"
 
-#: build/blockparty-modal/index.js:1
+#: build/blockparty-modal/index.js:418 build/blockparty-modal/index.js:463
 msgid "Modal to open when block is clicked"
 msgstr "Fenêtre modale à ouvrir lorsqu'on clique sur le bloc"
 
-#: build/blockparty-modal/index.js:1
+#: build/blockparty-modal/index.js:424 build/blockparty-modal/index.js:474
 msgid "Select a modal…"
 msgstr "Sélectionnez une fenêtre modale…"
+
+#: build/blockparty-modal/index.js:586 build/blockparty-modal/index.js:616
+msgid "Modal"
+msgstr "Modale"
 
 #: build/blockparty-modal/block.json
 msgctxt "block title"

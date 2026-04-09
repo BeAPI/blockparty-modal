@@ -19,6 +19,7 @@ import {
 	InnerBlocks,
 	RichText,
 } from '@wordpress/block-editor';
+import { TextControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 
 /* eslint-disable @wordpress/no-unsafe-wp-apis -- ToggleGroupControl is the intended UI for "Closed by" options; allow until stable. */
@@ -87,6 +88,7 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 		closedBy,
 		displayIconOnly,
 		enableCloseButton,
+		closeButtonLabel,
 		headingLevel: HeadingTag,
 		modalId,
 		preventScroll,
@@ -210,10 +212,7 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 						className="wp-block-blockparty-modal__close-button"
 					>
 						<span className={ displayIconOnly ? 'sr-only' : '' }>
-							{ __(
-								'Close this dialog window',
-								'blockparty-modal'
-							) }
+							{ closeButtonLabel ? closeButtonLabel : __( 'Close this dialog window', 'blockparty-modal' ) }
 						</span>
 						<Icon icon={ close } />
 					</button>
@@ -309,6 +308,17 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 						}
 						disabled={ closedBy === 'none' }
 					/>
+					{ enableCloseButton && (
+						<TextControl
+							label={ __( 'Close button label', 'blockparty-modal' ) }
+							help={ __( 'The label of the close button. If not set, the default label will be used.', 'blockparty-modal' ) }
+							value={ closeButtonLabel }
+							onChange={ ( newCloseButtonLabel ) =>
+								setAttributes( { closeButtonLabel: newCloseButtonLabel } )
+							}
+							placeholder={ __( 'Close this dialog window', 'blockparty-modal' ) }
+						/>
+					)}
 					<ToggleControl
 						label={ __( 'Display icon only', 'blockparty-modal' ) }
 						help={ __(
