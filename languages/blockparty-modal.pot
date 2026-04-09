@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-04-09T12:40:41+00:00\n"
+"POT-Creation-Date: 2026-04-09T12:45:03+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: blockparty-modal\n"
@@ -122,7 +122,7 @@ msgstr ""
 
 #: build/blockparty-modal/index.js:268
 #: build/blockparty-modal/index.js:314
-msgid "The label of the close button. If not set, the default label will be used."
+msgid "If not set, the default label will be used."
 msgstr ""
 
 #: build/blockparty-modal/index.js:275

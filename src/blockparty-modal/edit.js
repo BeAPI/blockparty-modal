@@ -311,7 +311,7 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 					{ enableCloseButton && (
 						<TextControl
 							label={ __( 'Close button label', 'blockparty-modal' ) }
-							help={ __( 'The label of the close button. If not set, the default label will be used.', 'blockparty-modal' ) }
+							help={ __( 'If not set, the default label will be used.', 'blockparty-modal' ) }
 							value={ closeButtonLabel }
 							onChange={ ( newCloseButtonLabel ) =>
 								setAttributes( { closeButtonLabel: newCloseButtonLabel } )
