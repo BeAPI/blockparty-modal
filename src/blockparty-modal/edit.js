@@ -27,6 +27,7 @@ import {
 	ToggleControl,
 	ToolbarGroup,
 	ToolbarButton,
+	TextControl,
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
@@ -87,6 +88,7 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 		closedBy,
 		displayIconOnly,
 		enableCloseButton,
+		closeButtonLabel,
 		headingLevel: HeadingTag,
 		modalId,
 		preventScroll,
@@ -210,10 +212,12 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 						className="wp-block-blockparty-modal__close-button"
 					>
 						<span className={ displayIconOnly ? 'sr-only' : '' }>
-							{ __(
-								'Close this dialog window',
-								'blockparty-modal'
-							) }
+							{ closeButtonLabel
+								? closeButtonLabel
+								: __(
+										'Close this dialog window',
+										'blockparty-modal'
+								  ) }
 						</span>
 						<Icon icon={ close } />
 					</button>
@@ -309,6 +313,28 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 						}
 						disabled={ closedBy === 'none' }
 					/>
+					{ enableCloseButton && closedBy !== 'none' && (
+						<TextControl
+							label={ __(
+								'Close button label',
+								'blockparty-modal'
+							) }
+							help={ __(
+								'If not set, the default label will be used.',
+								'blockparty-modal'
+							) }
+							value={ closeButtonLabel }
+							onChange={ ( newCloseButtonLabel ) =>
+								setAttributes( {
+									closeButtonLabel: newCloseButtonLabel,
+								} )
+							}
+							placeholder={ __(
+								'Close this dialog window',
+								'blockparty-modal'
+							) }
+						/>
+					) }
 					<ToggleControl
 						label={ __( 'Display icon only', 'blockparty-modal' ) }
 						help={ __(

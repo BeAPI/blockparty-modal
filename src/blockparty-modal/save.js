@@ -31,6 +31,7 @@ export default function save( { attributes } ) {
 		closedBy,
 		displayIconOnly,
 		enableCloseButton,
+		closeButtonLabel,
 		headingLevel: HeadingTag,
 		modalId,
 		preventScroll,
@@ -69,7 +70,12 @@ export default function save( { attributes } ) {
 					className="wp-block-blockparty-modal__close-button"
 				>
 					<span className={ displayIconOnly ? 'sr-only' : '' }>
-						{ __( 'Close this dialog window', 'blockparty-modal' ) }
+						{ closeButtonLabel
+							? closeButtonLabel
+							: __(
+									'Close this dialog window',
+									'blockparty-modal'
+							  ) }
 					</span>
 					<Icon icon={ close } />
 				</button>

@@ -32,6 +32,9 @@
 			"type": "boolean",
 			"default": true
 		},
+		"closeButtonLabel": {
+			"type": "string"
+		},
 		"displayIconOnly": {
 			"type": "boolean",
 			"default": false
