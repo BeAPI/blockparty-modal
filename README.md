@@ -272,6 +272,9 @@ This plugin is distributed under the GPL-2.0-or-later license. See the [LICENSE]
 
 See [readme.txt](readme.txt) for the full version history. Recent highlights:
 
+- **1.0.7**
+  - Add block setting for the close button label.
+
 - **1.0.6**
   - Fix `blueprint.json` config.
 
