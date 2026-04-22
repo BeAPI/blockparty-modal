@@ -1,0 +1,36 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"landingPage": "/blockparty-modal-demo/",
+	"preferredVersions": {
+		"php": "8.1",
+		"wp": "latest"
+	},
+	"steps": [
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "git:directory",
+				"url": "https://github.com/BeAPI/blockparty-modal",
+				"ref": "1.0.8",
+				"refType": "tag"
+			},
+			"options": {
+				"activate": true,
+				"targetFolderName": "blockparty-modal"
+			}
+		},
+		{
+			"step": "login",
+			"username": "admin",
+			"password": "password"
+		},
+		{
+			"step": "runPHP",
+			"code": "<?php\nrequire_once 'wordpress/wp-load.php';\n$dir = WP_CONTENT_DIR . '/mu-plugins';\nif ( ! is_dir( $dir ) ) {\n\twp_mkdir_p( $dir );\n}\n$file = $dir . '/blockparty-modal-playground-svg-kses.php';\n$lines = array(\n\t'<?php',\n\t'add_filter( \\'wp_kses_allowed_html\\', function( $tags, $context ) {',\n\t'\tif ( \\'post\\' !== $context ) {',\n\t'\t\treturn $tags;',\n\t'\t}',\n\t'\t$tags[\\'dialog\\'] = array(',\n\t'\t\t\\'aria-modal\\' => true,',\n\t'\t\t\\'class\\' => true,',\n\t'\t\t\\'style\\' => true,',\n\t'\t\t\\'id\\' => true,',\n\t'\t\t\\'closedby\\' => true,',\n\t'\t);',\n\t'\t$tags[\\'svg\\'] = array(',\n\t'\t\t\\'xmlns\\' => true,',\n\t'\t\t\\'viewbox\\' => true,',\n\t'\t\t\\'width\\' => true,',\n\t'\t\t\\'height\\' => true,',\n\t'\t\t\\'fill\\' => true,',\n\t'\t\t\\'class\\' => true,',\n\t'\t\t\\'aria-hidden\\' => true,',\n\t'\t\t\\'role\\' => true,',\n\t'\t\t\\'focusable\\' => true,',\n\t'\t);',\n\t'\t$tags[\\'path\\'] = array(',\n\t'\t\t\\'d\\' => true,',\n\t'\t\t\\'fill\\' => true,',\n\t'\t\t\\'class\\' => true,',\n\t'\t);',\n\t'\treturn $tags;',\n\t'}, 10, 2 );',\n);\nfile_put_contents( $file, implode( \"\\n\", $lines ) . \"\\n\" );\necho file_exists( $file ) ? 'mu-plugin installed' : 'mu-plugin failed';\n?>"
+		},
+		{
+			"step": "runPHP",
+			"code": "<?php require_once 'wordpress/wp-load.php'; $page_content = '<!-- wp:group {\"style\":{\"spacing\":{\"margin\":{\"top\":\"0\",\"bottom\":\"0\"},\"blockGap\":\"var:preset|spacing|40\"}},\"layout\":{\"type\":\"constrained\"}} -->\n<div class=\"wp-block-group\" style=\"margin-top:0;margin-bottom:0\"><!-- wp:paragraph -->\n<p>Click on the button below to reveal a dialog window.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:buttons {\"layout\":{\"type\":\"flex\",\"justifyContent\":\"center\"}} -->\n<div class=\"wp-block-buttons\"><!-- wp:button {\"linkedModalId\":\"m-4dc3f7ac0a14\"} -->\n<div class=\"wp-block-button\"><a class=\"wp-block-button__link wp-element-button\">About Gutenberg</a></div>\n<!-- /wp:button --></div>\n<!-- /wp:buttons --></div>\n<!-- /wp:group -->\n\n<!-- wp:blockparty/modal {\"title\":\"Johannes Gutenberg\",\"modalId\":\"m-4dc3f7ac0a14\",\"displayIconOnly\":true,\"style\":{\"spacing\":{\"padding\":{\"right\":\"var:preset|spacing|40\",\"left\":\"var:preset|spacing|40\",\"top\":\"var:preset|spacing|40\",\"bottom\":\"var:preset|spacing|40\"}}}} -->\n<dialog class=\"wp-block-blockparty-modal\" style=\"padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)\" id=\"modal-m-4dc3f7ac0a14\" aria-modal=\"true\" closedby=\"any\"><div class=\"wp-block-blockparty-modal__header\"><h2 class=\"wp-block-blockparty-modal__title\">Johannes Gutenberg</h2></div><div class=\"wp-block-blockparty-modal__content\"><!-- wp:quote -->\n<blockquote class=\"wp-block-quote\"><!-- wp:paragraph -->\n<p><em>\"Gutenberg\" redirects here. For the Bible, see </em><a href=\"https://en.wikipedia.org/wiki/Gutenberg_Bible\">Gutenberg Bible</a><em>. For other uses, see </em><a href=\"https://en.wikipedia.org/wiki/Gutenberg_(disambiguation)\">Gutenberg (disambiguation)</a><em>.</em></p>\n<!-- /wp:paragraph --></blockquote>\n<!-- /wp:quote -->\n\n<!-- wp:paragraph -->\n<p><strong>Johannes Gensfleisch zur Laden zum Gutenberg</strong> (c. 1393–1406 – 3 February 1468) was a German inventor and <a href=\"https://en.wikipedia.org/wiki/Artisan\">craftsman</a> who invented the movable-type <a href=\"https://en.wikipedia.org/wiki/Printing_press\">printing press</a>. Though <a href=\"https://en.wikipedia.org/wiki/Movable_type\">movable type</a> was already in use in East Asia, Gutenberg\\'s invention of the printing press enabled a much faster rate of <a href=\"https://en.wikipedia.org/wiki/Printing\">printing</a>. The printing press later <a href=\"https://en.wikipedia.org/wiki/Global_spread_of_the_printing_press\">spread across the world</a>, and led to an <a href=\"https://en.wikipedia.org/wiki/Information_revolution\">information revolution</a> and the unprecedented mass-spread of literature throughout Europe. It had a profound impact on the development of the <a href=\"https://en.wikipedia.org/wiki/Renaissance\">Renaissance</a>, <a href=\"https://en.wikipedia.org/wiki/Reformation\">Reformation</a>, and <a href=\"https://en.wikipedia.org/wiki/Humanist\">humanist</a> movements.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph {\"align\":\"right\",\"fontSize\":\"small\"} -->\n<p class=\"has-text-align-right has-small-font-size\">Source : <a href=\"https://en.wikipedia.org/wiki/Johannes_Gutenberg\">Wikipedia</a></p>\n<!-- /wp:paragraph --></div><button type=\"button\" class=\"wp-block-blockparty-modal__close-button\"><span class=\"sr-only\">Close this dialog window</span><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" aria-hidden=\"true\"><path d=\"m13.06 12 6.47-6.47-1.06-1.06L12 10.94 5.53 4.47 4.47 5.53 10.94 12l-6.47 6.47 1.06 1.06L12 13.06l6.47 6.47 1.06-1.06L13.06 12Z\"></path></svg></button></dialog>\n<!-- /wp:blockparty/modal -->'; $page_id = wp_insert_post( array( 'post_title' => 'Blockparty Modal', 'post_name' => 'blockparty-modal-demo', 'post_content' => $page_content, 'post_status' => 'publish', 'post_type' => 'page' ) ); echo 'Page created with ID: ' . $page_id; ?>"
+		}
+	]
+}

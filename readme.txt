@@ -2,7 +2,7 @@
 Contributors:      Be API Technical Team
 Tags:              block
 Tested up to:      6.8
-Stable tag:        1.0.7
+Stable tag:        1.0.8
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,11 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+
+= 1.0.8 =
+* Add CI check and a shell script to validate version bumps for releases.
+* Add a project changelog and update the WordPress Playground demo blueprint.
+* Adjust quality workflows, exclude `tests/` from the plugin zip, and remove Psalm from dev dependencies.
 
 = 1.0.7 =
 * Add block setting for the close button label.
