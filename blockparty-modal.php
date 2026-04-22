@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Blockparty Modal
  * Description:       Modal block for WordPress editor.
- * Version:           1.0.7
+ * Version:           1.0.8
  * Requires at least: 6.8
  * Requires PHP:      8.1
  * Author:            Be API Technical Team
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'BLOCKPARTY_MODAL_VERSION', '1.0.7' );
+define( 'BLOCKPARTY_MODAL_VERSION', '1.0.8' );
 define( 'BLOCKPARTY_MODAL_URL', plugin_dir_url( __FILE__ ) );
 define( 'BLOCKPARTY_MODAL_DIR', plugin_dir_path( __FILE__ ) );
 

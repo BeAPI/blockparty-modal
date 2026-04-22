@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.8]
+
+* Add GitHub Actions check and `tests/bin/check-release-version.sh` to validate that release version bumps are consistent across all versioned files.
+* Add this changelog file (Keep a Changelog format).
+* Update WordPress Playground `blueprint.json` demo page content.
+* Run the JavaScript quality workflow when `package.json` changes.
+* Exclude the `tests/` directory from plugin distribution archives.
+* Remove Psalm from development dependencies and GrumPHP.
+
 ## [1.0.7]
 
 * Add block setting for the close button label.
