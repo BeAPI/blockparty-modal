@@ -23,6 +23,7 @@ package-lock.json
 
 # Documentation (GitHub)
 CHANGELOG.md
+CONTRIBUTING.md
 README.md
 
 # Development files
