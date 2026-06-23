@@ -107,11 +107,11 @@ export function generateStableModalId() {
  * Collect modal options from the block editor store using getClientIdsWithDescendants
  * and getBlock, so modals inside reusable blocks (core/block) and patterns are included.
  *
- * @param {Function} select - The wp.data select function (e.g. from useSelect).
+ * @param {Function} storeSelect - The wp.data select function (e.g. from useSelect).
  * @return {Object[]} Options for ComboboxControl.
  */
-export function getModalOptionsFromEditor( select ) {
-	const blockEditor = select( 'core/block-editor' );
+export function getModalOptionsFromEditor( storeSelect ) {
+	const blockEditor = storeSelect( 'core/block-editor' );
 	const clientIds = blockEditor.getClientIdsWithDescendants();
 	if ( ! Array.isArray( clientIds ) ) {
 		return [];
