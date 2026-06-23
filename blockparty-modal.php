@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Blockparty Modal
  * Description:       Modal block for WordPress editor.
- * Version:           1.0.8
+ * Version:           1.0.9
  * Requires at least: 6.8
  * Requires PHP:      8.1
  * Author:            Be API Technical Team
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'BLOCKPARTY_MODAL_VERSION', '1.0.8' );
+define( 'BLOCKPARTY_MODAL_VERSION', '1.0.9' );
 define( 'BLOCKPARTY_MODAL_URL', plugin_dir_url( __FILE__ ) );
 define( 'BLOCKPARTY_MODAL_DIR', plugin_dir_path( __FILE__ ) );
 
@@ -47,31 +47,72 @@ function init(): void {
 add_action( 'init', __NAMESPACE__ . '\\init', 10, 0 );
 
 /**
- * Passes the list of blocks allowed as modal triggers to the block editor settings
- * so the "Attached modal" panel is only shown for those blocks.
+ * Returns the filtered list of blocks allowed inside the modal block.
  *
- * @param array<array-key, mixed> $settings   Block editor settings.
- * @param \WP_Block_Editor_Context $_context Block editor context (unused).
- * @return array<array-key, mixed> Modified settings.
+ * @return string[] Block names.
  */
-function block_editor_settings_modal_trigger_blocks( array $settings, \WP_Block_Editor_Context $_context ): array { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- Required by block_editor_settings_all filter signature.
+function get_modal_inner_allowed_blocks(): array {
+	/** @psalm-suppress MixedAssignment */
+	$raw = apply_filters(
+		'blockparty_modal_inner_allowed_blocks',
+		get_default_modal_inner_allowed_blocks()
+	);
+
+	return array_values(
+		array_filter( is_array( $raw ) ? $raw : [], 'is_string' )
+	);
+}
+
+/**
+ * Returns the filtered list of blocks allowed as modal triggers.
+ *
+ * @return string[] Block names.
+ */
+function get_modal_trigger_allowed_blocks(): array {
 	/** @psalm-suppress MixedAssignment */
 	$raw = apply_filters(
 		'blockparty_modal_trigger_allowed_blocks',
 		get_default_modal_trigger_allowed_blocks()
 	);
-	$settings['blockpartyModalTriggerAllowedBlocks'] = array_values(
+
+	return array_values(
 		array_filter( is_array( $raw ) ? $raw : [], 'is_string' )
 	);
+}
 
-	/** @psalm-suppress MixedAssignment */
-	$inner_raw                                     = apply_filters(
-		'blockparty_modal_inner_allowed_blocks',
-		get_default_modal_inner_allowed_blocks()
+/**
+ * Passes allowed-block lists to the block editor script.
+ *
+ * Custom keys added via block_editor_settings_all are stripped by the editor
+ * allowlist in recent WordPress versions, so the lists are localized here.
+ */
+function enqueue_block_editor_data(): void {
+	if ( ! wp_script_is( 'blockparty-modal-editor-script', 'registered' ) ) {
+		return;
+	}
+
+	wp_localize_script(
+		'blockparty-modal-editor-script',
+		'blockpartyModalEditorSettings',
+		[
+			'innerAllowedBlocks'   => get_modal_inner_allowed_blocks(),
+			'triggerAllowedBlocks' => get_modal_trigger_allowed_blocks(),
+		]
 	);
-	$settings['blockpartyModalInnerAllowedBlocks'] = array_values(
-		array_filter( is_array( $inner_raw ) ? $inner_raw : [], 'is_string' )
-	);
+}
+
+add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\\enqueue_block_editor_data', 20 );
+
+/**
+ * Passes allowed-block lists to block editor settings (legacy path).
+ *
+ * @param array<array-key, mixed>  $settings   Block editor settings.
+ * @param \WP_Block_Editor_Context $_context   Block editor context (unused).
+ * @return array<array-key, mixed> Modified settings.
+ */
+function block_editor_settings_modal_trigger_blocks( array $settings, \WP_Block_Editor_Context $_context ): array { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- Required by block_editor_settings_all filter signature.
+	$settings['blockpartyModalTriggerAllowedBlocks'] = get_modal_trigger_allowed_blocks();
+	$settings['blockpartyModalInnerAllowedBlocks']   = get_modal_inner_allowed_blocks();
 
 	return $settings;
 }
@@ -136,16 +177,8 @@ function render_block_add_modal_trigger( $block_content, array $block ) {
 		return $block_content;
 	}
 
-	$block_name = (string) ( $block['blockName'] ?? '' );
-	/** @psalm-suppress MixedAssignment */
-	$raw_blocks     = apply_filters(
-		'blockparty_modal_trigger_allowed_blocks',
-		get_default_modal_trigger_allowed_blocks()
-	);
-	$allowed_blocks = array_filter(
-		is_array( $raw_blocks ) ? $raw_blocks : array(),
-		'is_string'
-	);
+	$block_name     = (string) ( $block['blockName'] ?? '' );
+	$allowed_blocks = get_modal_trigger_allowed_blocks();
 
 	if ( '' === $block_name || ! in_array( $block_name, $allowed_blocks, true ) ) {
 		return $block_content;

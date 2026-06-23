@@ -2,7 +2,7 @@
 Contributors:      Be API Technical Team
 Tags:              block
 Tested up to:      6.8
-Stable tag:        1.0.8
+Stable tag:        1.0.9
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,10 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+
+= 1.0.9 =
+* Fix `blockparty_modal_inner_allowed_blocks` and `blockparty_modal_trigger_allowed_blocks` filters not being applied in the block editor on recent WordPress versions.
+* Pass allowed block lists to the editor script via `wp_localize_script` so they are available despite the block editor settings allowlist.
 
 = 1.0.8 =
 * Add CI check and a shell script to validate version bumps for releases.

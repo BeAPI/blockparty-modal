@@ -45,31 +45,11 @@ import './editor.scss';
 import { Icon, close, seen, unseen } from '@wordpress/icons';
 import { useState, useRef, useEffect } from '@wordpress/element';
 
-import { generateStableModalId, MODAL_BLOCK_NAME } from './utils';
-
-/** Default block names allowed inside the modal (filterable via blockparty_modal_inner_allowed_blocks). */
-const DEFAULT_INNER_ALLOWED_BLOCKS = [
-	'core/paragraph',
-	'core/heading',
-	'core/list',
-	'core/list-item',
-	'core/file',
-	'core/quote',
-	'core/math',
-	'core/details',
-	'core/pullquote',
-	'core/table',
-	'core/embed',
-	'core/shortcode',
-	'core/html',
-	'core/separator',
-	'core/image',
-	'core/gallery',
-	'core/video',
-	'core/buttons',
-	'core/button',
-	'core/spacer',
-];
+import {
+	generateStableModalId,
+	getInnerAllowedBlocks,
+	MODAL_BLOCK_NAME,
+} from './utils';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -173,13 +153,7 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 		};
 	}, [ isPreview ] );
 
-	const allowedBlocks = useSelect( ( storeSelect ) => {
-		const settings = storeSelect( 'core/block-editor' ).getSettings();
-		const list = settings?.blockpartyModalInnerAllowedBlocks;
-		return Array.isArray( list ) && list.length > 0
-			? list
-			: DEFAULT_INNER_ALLOWED_BLOCKS;
-	}, [] );
+	const allowedBlocks = getInnerAllowedBlocks();
 
 	return (
 		<>

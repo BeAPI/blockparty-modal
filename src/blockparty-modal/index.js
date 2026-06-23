@@ -5,7 +5,7 @@
  */
 import { registerBlockType, getBlockTypes } from '@wordpress/blocks';
 import { addFilter } from '@wordpress/hooks';
-import { useSelect, select } from '@wordpress/data';
+import { useSelect } from '@wordpress/data';
 import { InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, ComboboxControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -25,6 +25,7 @@ import {
 	LINKED_MODAL_ATTR,
 	getModalOptionsFromEditor,
 	addLinkedModalAttribute,
+	getTriggerAllowedBlocks,
 } from './utils';
 
 registerBlockType( metadata.name, {
@@ -33,28 +34,12 @@ registerBlockType( metadata.name, {
 	save,
 } );
 
-/**
- * Returns the list of block names allowed as modal triggers (same as filter blockparty_modal_trigger_allowed_blocks).
- * Used so we only add linkedModalId to those blocks.
- *
- * @return {string[]} Allowed block names.
- */
-function getModalTriggerAllowedBlocks() {
-	try {
-		const settings = select( 'core/block-editor' ).getSettings();
-		const list = settings?.blockpartyModalTriggerAllowedBlocks;
-		return Array.isArray( list ) ? list : [ 'core/button' ];
-	} catch {
-		return [ 'core/button' ];
-	}
-}
-
 // Add linkedModalId attribute only to blocks allowed as modal triggers.
 addFilter(
 	'blocks.registerBlockType',
 	'blockparty-modal/add-linked-modal-attribute',
 	( settings, blockName ) => {
-		const allowedBlocks = getModalTriggerAllowedBlocks();
+		const allowedBlocks = getTriggerAllowedBlocks();
 		if ( ! allowedBlocks.includes( blockName ) ) {
 			return settings;
 		}
@@ -64,7 +49,7 @@ addFilter(
 
 // Blocks registered before our script loaded (e.g. core blocks) didn't get the
 // filter — re-register only allowed blocks so linkedModalId is persisted on save.
-const allowedBlocks = getModalTriggerAllowedBlocks();
+const allowedBlocks = getTriggerAllowedBlocks();
 const blockTypes = getBlockTypes();
 blockTypes.forEach( ( blockType ) => {
 	if (
@@ -89,11 +74,7 @@ addFilter(
 			return <BlockEdit { ...props } />;
 		}
 
-		const triggerAllowedBlocks = useSelect( ( storeSelect ) => {
-			const settings = storeSelect( 'core/block-editor' ).getSettings();
-			const list = settings?.blockpartyModalTriggerAllowedBlocks;
-			return Array.isArray( list ) ? list : [ 'core/button' ];
-		}, [] );
+		const triggerAllowedBlocks = getTriggerAllowedBlocks();
 
 		if ( ! triggerAllowedBlocks.includes( name ) ) {
 			return <BlockEdit { ...props } />;
