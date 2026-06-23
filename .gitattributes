@@ -24,4 +24,5 @@
 
 # Documentation (GitHub)
 /CHANGELOG.md export-ignore
+/CONTRIBUTING.md export-ignore
 /README.md export-ignore
