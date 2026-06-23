@@ -15,8 +15,8 @@
 		"make-pot": "wp i18n make-pot . languages/blockparty-modal.pot --exclude=\"src\" --domain=blockparty-modal",
 		"make-json": "wp i18n make-json languages/blockparty-modal-fr_FR.po languages/ --no-purge",
 		"start": "wp-scripts start --blocks-manifest",
-		"start:env": "wp-env start",
-		"stop:env": "wp-env stop"
+		"env:start": "wp-env start",
+		"env:stop": "wp-env stop"
 	},
 	"dependencies": {
 		"@beapi/icons": "^1.2.6",
