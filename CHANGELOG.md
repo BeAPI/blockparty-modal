@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.9]
+
+* Fix `blockparty_modal_inner_allowed_blocks` and `blockparty_modal_trigger_allowed_blocks` filters not being applied in the block editor on recent WordPress versions.
+* Pass allowed block lists to the editor script via `wp_localize_script` so they are available despite the block editor settings allowlist.
+
 ## [1.0.8]
 
 * Add GitHub Actions check and `tests/bin/check-release-version.sh` to validate that release version bumps are consistent across all versioned files.
